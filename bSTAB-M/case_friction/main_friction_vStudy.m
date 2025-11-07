@@ -18,7 +18,7 @@ addpath('../');
 
 % define a name for the current analysis (a subdirectory will be created in
 % this folder)
-currentCase = 'v_study_fine2'; 
+currentCase = 'case_friction/main_friction_vStudy_results'; 
 
 % set up paths, initialize bSTAB, create properties struct <props>
 [props] = init_bSTAB(currentCase);
@@ -54,6 +54,13 @@ props.ap_study.ap_name = '$v_{\mathrm{d}}$';
 % save the results (the compuatation may have took quite a long time, so 
 % make sure to not lose the data!)
 save([props.subCasePath, '/results.mat']);
+
+% save basin stability results to JSON
+basin_stability_results = res_tab;
+jsonStr = jsonencode(basin_stability_results);
+fid = fopen([props.subCasePath, '/basin_stability_results.json'], 'w');
+fprintf(fid, '%s', jsonStr);
+fclose(fid);
 
 
 %% 3. plot the results

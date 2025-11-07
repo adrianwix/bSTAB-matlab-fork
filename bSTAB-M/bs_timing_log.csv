@@ -1,0 +1,3 @@
+timestamp,git_commit,case_id,mode,parallel,samples,RelTol,AbsTol,elapsed,ap_total,ap_iters,ap_each
+2025-11-04T20:39:49,,unknown_case,compute_bs,1,10000,1e-08,,455.5121,,,
+2025-11-04T20:55:53,,unknown_case,compute_bs,0,10000,1e-08,,455.1056,,,

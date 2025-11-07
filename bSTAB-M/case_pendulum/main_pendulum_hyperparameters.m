@@ -17,7 +17,7 @@ clear; close all; clc;
 
 % define a name for the current analysis (a subdirectory will be created in
 % this folder)
-currentCase = 'hyperparameter_N'; 
+currentCase = 'case_pendulum/main_pendulum_hyperparameters_results'; 
 
 % set up paths, initialize bSTAB, create properties struct <props>
 [props] = init_bSTAB(currentCase);
@@ -57,6 +57,13 @@ props.ap_study.ap_name = '$N$';
 % save the results (the compuatation may have took quite a long time, so 
 % make sure to not lose the data!)
 save([props.subCasePath, '/results.mat']);
+
+% save basin stability results to JSON
+basin_stability_results = res_tab;
+jsonStr = jsonencode(basin_stability_results);
+fid = fopen([props.subCasePath, '/basin_stability_results.json'], 'w');
+fprintf(fid, '%s', jsonStr);
+fclose(fid);
 
 
 %% 3. plot the results

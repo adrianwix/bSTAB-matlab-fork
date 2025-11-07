@@ -29,7 +29,7 @@ props.flagShowFigures = false;
 props.flagUseHPC = true; 
 
 % show progress bar along computation (requires the ParforProgressbar tool)
-props.progessBar = false; 
+props.progessBar = true; 
 
 
 %% 1. dynamical system properties (.model struct)

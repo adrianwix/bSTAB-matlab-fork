@@ -35,8 +35,8 @@ function [res_tab, res_detail, props] = compute_bs(props)
 % with this program. If not, see http://www.gnu.org/licenses/
 % -------------------------------------------------------------------------
 
-% track the computation time
-tic
+% track the computation time (instrumented)
+t_bs_start = tic;
 
 
 %% generate the grid of initial conditions
@@ -78,7 +78,7 @@ if props.flagParallel
     end
     
     parfor i = 1:props.roi.Nactual
-        disp(['time integration ', num2str(i), '/', num2str(props.roi.Nactual)]);
+        disp(['(parallel) time integration ', num2str(i), '/', num2str(props.roi.Nactual)]);
         
         % perform the time integration
         [T_, Y_] = run_time_integration(props.model.odeFun, props.ti.tSpan,...
@@ -107,7 +107,7 @@ if props.flagParallel
     
 else % don't use parallel computing
     for i = 1:props.roi.Nactual
-        disp(['time integration ', num2str(i), '/', num2str(props.roi.Nactual)]);
+        disp(['(serial) time integration ', num2str(i), '/', num2str(props.roi.Nactual)]);
         
         % perform the time integration
         [T_, Y_] = run_time_integration(props.model.odeFun, props.ti.tSpan,...
@@ -190,10 +190,37 @@ for i = 1:props.roi.Nactual
 end
 
 % report the results on the command line
-disp(['basin stability computation took ', num2str(toc), ' seconds']);
+elapsed_bs = toc(t_bs_start);
+disp(['basin stability computation took ', num2str(elapsed_bs), ' seconds']);
+
+% store timing & context information for external benchmarking without
+% changing the public API (added non-intrusive props.profiling fields)
+if ~isfield(props, 'profiling') || ~isstruct(props.profiling)
+    props.profiling = struct;
+end
+props.profiling.bs_last_elapsed = elapsed_bs;                % seconds
+props.profiling.bs_num_samples = props.roi.Nactual;          % number of ICs actually integrated
+props.profiling.bs_flagParallel = props.flagParallel;        % parallel flag
+props.profiling.bs_timestamp = datestr(now, 'yyyy-mm-ddTHH:MM:SS');
+% attempt to record git commit hash (fails silently if unavailable)
+try
+    [st, hash] = system('git rev-parse HEAD'); %#ok<ASGLU>
+    if st==0
+        props.profiling.git_commit = strtrim(hash);
+    end
+catch
+    % ignore
+end
 
 for i = 1:height(res_tab)
     disp(['basin stability of solution ', num2str(i), ', label: ', char(res_tab.label(i)), ' : S=', num2str(res_tab.basinStability(i))]);
+end
+
+% automatically append timing log for later retrieval
+try
+    internal_log_bs_timing(props, 'compute_bs');
+catch
+    % logging should never break scientific workflow
 end
 
 

@@ -45,6 +45,10 @@ function [res_tab, res_detail, props] = compute_bs_ap(props)
 % number of parameter variations
 ap_iters = length(props.ap_study.ap_values);
 
+% start high-level timing for adaptive parameter study (instrumented)
+t_ap_start = tic;
+ap_each_elapsed = nan(ap_iters,1); % store each compute_bs elapsed time
+
 % initialize the results cell array
 temp_res_tab = cell(ap_iters, 1);
 temp_res_detail = cell(ap_iters, 1);
@@ -63,7 +67,12 @@ for i = 1:ap_iters
     disp(temp_props.model.odeParams);
 
     % compute the basin stability value for the current parameter setting
-    [temp_res_tab{i}, temp_res_detail{i}, ~] = compute_bs(temp_props);
+    [temp_res_tab{i}, temp_res_detail{i}, temp_props] = compute_bs(temp_props);
+
+    % capture timing information from underlying compute_bs instrumentation
+    if isfield(temp_props, 'profiling') && isfield(temp_props.profiling, 'bs_last_elapsed')
+        ap_each_elapsed(i) = temp_props.profiling.bs_last_elapsed;
+    end
 
 end
 
@@ -102,6 +111,31 @@ if strcmp(props.clust.clustMode, 'supervised')  % we are running supervised.
 else
     res_detail = temp_res_detail;
     res_tab = temp_res_tab;
+end
+
+% finalize adaptive parameter study timing instrumentation
+ap_total_elapsed = toc(t_ap_start);
+if ~isfield(props, 'profiling') || ~isstruct(props.profiling)
+    props.profiling = struct;
+end
+props.profiling.bs_ap_each = ap_each_elapsed;        % vector of per-parameter bs times (s)
+props.profiling.bs_ap_total = ap_total_elapsed;      % total elapsed time (s)
+props.profiling.bs_ap_iters = ap_iters;              % number of parameter values
+props.profiling.bs_ap_timestamp = datestr(now, 'yyyy-mm-ddTHH:MM:SS');
+try
+    [st, hash] = system('git rev-parse HEAD'); %#ok<ASGLU>
+    if st==0
+        props.profiling.git_commit = strtrim(hash);
+    end
+catch
+end
+
+disp(['adaptive parameter basin stability study took ', num2str(ap_total_elapsed), ' seconds (mean per iteration = ', num2str(nanmean(ap_each_elapsed)), ' s)']);
+
+% automatically append timing log for later retrieval
+try
+    internal_log_bs_timing(props, 'compute_bs_ap');
+catch
 end
 
 

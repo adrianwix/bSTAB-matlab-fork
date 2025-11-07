@@ -23,13 +23,13 @@ function  [props] = setup_pendulum(props)
 props.flagParallel = true;
 
 % visual output of the program during computation & storing the figures
-props.flagShowFigures = true;
+props.flagShowFigures = false;
 
 % disable all graphical feedback for HPC deployment
 props.flagUseHPC = false;
 
 % show progress bar along computation (requires the ParforProgressbar tool)
-props.progessBar = false;
+props.progessBar = true;
 
 
 %% 1. dynamical system properties (.model struct)

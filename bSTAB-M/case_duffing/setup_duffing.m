@@ -23,7 +23,7 @@ function  [props] = setup_duffing(props)
 props.flagParallel = true; 
 
 % visual output of the program during computation
-props.flagShowFigures = true; 
+props.flagShowFigures = false; 
 
 % disable all graphical feedback for HPC deployment
 props.flagUseHPC = false; 

@@ -23,7 +23,7 @@ addpath('..');
 
 % define a name for the current analysis (a subdirectory will be created in
 % this folder)
-currentCase = 'test_unsupervised'; 
+currentCase = 'case_duffing_unsupervised/main_duffing_unsupervised_results'; 
 
 % set up paths, initialize bSTAB, create properties struct <props>
 [props] = init_bSTAB(currentCase);
@@ -48,6 +48,13 @@ currentCase = 'test_unsupervised';
 % save the results (the compuatation may have took quite a long time, so 
 % make sure to not lose the data!)
 save([props.subCasePath, '/results.mat']);
+
+% save basin stability results to JSON
+basin_stability_results = res_tab;
+jsonStr = jsonencode(basin_stability_results);
+fid = fopen([props.subCasePath, '/basin_stability_results.json'], 'w');
+fprintf(fid, '%s', jsonStr);
+fclose(fid);
 
 
 %% 3. plot the results
