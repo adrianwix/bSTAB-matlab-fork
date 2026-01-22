@@ -44,7 +44,7 @@ currentCase = 'case_duffing/main_duffing_results';
 
 % save the results (the compuatation may have took quite a long time, so 
 % make sure to not lose the data!)
-save([props.subCasePath, '/results_basinstability.mat']);
+save([props.subCasePath, '/results.mat']);
 
 % save basin stability results to JSON
 basin_stability_results = res_tab;

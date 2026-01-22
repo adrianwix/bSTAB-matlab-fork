@@ -8,3 +8,7 @@ timestamp,git_commit,case_id,mode,parallel,samples,RelTol,AbsTol,elapsed,ap_tota
 2025-11-25T23:01:04,,unknown_case,compute_bs,1,5000,1e-06,1e-08,3.0872,,,
 2025-11-25T23:01:07,,unknown_case,compute_bs,1,5000,1e-06,1e-08,3.322,,,
 2025-11-25T23:01:10,,unknown_case,compute_bs,1,5000,1e-06,1e-08,2.522,,,
+2026-01-22T17:38:02,,unknown_case,compute_bs,1,5000,1e-08,,37.6206,,,
+2026-01-22T17:39:20,,unknown_case,compute_bs,1,5000,1e-08,,11.0878,,,
+2026-01-22T17:40:14,,unknown_case,compute_bs,1,5000,1e-08,,11.1232,,,
+2026-01-22T18:27:13,,unknown_case,compute_bs,1,10000,1e-08,,41.9677,,,

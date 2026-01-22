@@ -56,7 +56,7 @@ props.model.odeParams = [delta, k3, A];
 % Specify the subset of the state space where to sample the states from
 
 % 2.1 number of samples N
-props.roi.N = 5000; % integer number
+props.roi.N = 10000; % integer number
 
 % 2.2 minima (per state space dimension)
 props.roi.minLimits = [-1.0, -0.5]; % must be of length <props.model.dof>
