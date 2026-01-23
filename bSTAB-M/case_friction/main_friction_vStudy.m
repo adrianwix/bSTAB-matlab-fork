@@ -43,7 +43,7 @@ props.ap_study.mode = 'model_parameter';
 props.ap_study.ap = 1;
 
 % specify the parameter variation vector
-props.ap_study.ap_values = 1.85:0.025:2.0;
+props.ap_study.ap_values = linspace(0.8, 2.225, 20);
 
 % specify the name of the adaptive parameter (just for plotting purpose)
 props.ap_study.ap_name = '$v_{\mathrm{d}}$'; 
