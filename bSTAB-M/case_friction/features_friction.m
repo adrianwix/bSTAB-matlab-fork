@@ -22,21 +22,14 @@ function [features] = features_friction(T, Y, props)
 % 1. detect the steady-state regime (time after props.t_bs)
 idx_steady = find(T>props.ti.tStar,1);
 
+% One-hot encoding: FP = [1, 0], LC = [0, 1]
 if max(abs(Y(idx_steady:end,2))) > 0.2
-    features = 1; 
+    features(1,1) = 0; % LC
+    features(2,1) = 1;
 else
-    features = 0; 
+    features(1,1) = 1; % FP
+    features(2,1) = 0;
 end
-% 
-% % 2. extract some features
-% %  we simply take the steady state value of the position x (as the mean
-% %  variation between minima and maxima)
-% [ pos_max, pos_min, ~, ~ ] = computeEnvelopeTimeSeries( Y(:,1) );
-% if length(pos_max)>10
-%     features = mean(abs(Y(pos_max(end-10:end,1))-Y(pos_min(end-10:end,1))));
-% else
-%     features = 0;
-% end
 
 end
 

@@ -123,7 +123,7 @@ props.clust.clustMode = 'supervised'; % string
 props.clust.featExtractFun = @features_friction; % a function handle
 
 % 4.3 number of extracted features
-props.clust.numFeatures = 1; 
+props.clust.numFeatures = 2; 
 
 % 4.4. further clustering options
 % Please indicate the classification function. Per default, we use a simple
@@ -160,7 +160,7 @@ props.templ.k = 2;
 % solution
 
 % the initial condition that leads the system to end up on the first steady state
-props.templ.Y0{1} = [0.1, 0.1];   % initial condition (NOT the steady-state itself)
+props.templ.Y0{1} = [1, 1];   % initial condition (NOT the steady-state itself)
 props.templ.modelParams{1} = [1.5]; % model parameters
 props.templ.label{1} = 'FP';   
 
