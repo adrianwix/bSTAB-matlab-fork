@@ -35,7 +35,7 @@ else
 end
 
 % 4. finally: plotting
-figure;
+figure('Name', 'Bifurcation Diagram', 'NumberTitle', 'off');
 for idx_d = 1:n_dofs
     ax{idx_d} = subplot(1,n_dofs, idx_d);
     

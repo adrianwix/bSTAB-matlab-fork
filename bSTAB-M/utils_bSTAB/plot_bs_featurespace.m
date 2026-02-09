@@ -34,7 +34,7 @@ function plot_bs_featurespace(props, res_detail)
 X = cell2mat(res_detail(:,2));
 L = table2array(cell2table(res_detail(:,3)));
 
-figure; 
+figure('Name', 'Feature Space', 'NumberTitle', 'off'); 
 if props.clust.numFeatures == 1
     for i = 1:props.templ.k
         p = plot(props.templ.features{i}(1), 'x', 'markersize', 6, 'linewidth', 2, 'displayName', 'class templates'); hold on; 
@@ -44,9 +44,8 @@ if props.clust.numFeatures == 1
 % % %         plot()
 % % %     end
 elseif props.clust.numFeatures == 2
-figure; 
-for i = 1:props.templ.k
-   p = plot(props.templ.features{i}(1),  props.templ.features{i}(2), 'x', 'markersize', 6, 'linewidth', 2, 'displayName', 'class templates'); hold on; 
+    for i = 1:props.templ.k
+       p = plot(props.templ.features{i}(1),  props.templ.features{i}(2), 'x', 'markersize', 6, 'linewidth', 2, 'displayName', 'class templates'); hold on; 
 end
 gs = gscatter(X(:,1), X(:,2), L);
 legend([p, gs'])

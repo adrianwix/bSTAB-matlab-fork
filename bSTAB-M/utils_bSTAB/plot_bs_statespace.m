@@ -35,7 +35,7 @@ function plot_bs_statespace(props, res_detail, idx_state1, idx_state2)
 Y0 = cell2mat(res_detail(:,1));
 L = table2array(cell2table(res_detail(:,3)));
 
-figure;
+figure('Name', 'State Space Basin Stability', 'NumberTitle', 'off');
 gscatter(Y0(:,idx_state1), Y0(:,idx_state2), L);
 xlabel(['state ', num2str(idx_state1)], 'interpreter', 'latex');
 ylabel(['state ', num2str(idx_state2)], 'interpreter', 'latex');

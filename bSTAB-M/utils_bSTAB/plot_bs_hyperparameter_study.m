@@ -41,7 +41,7 @@ num_solutions = ((width(tab)-1)/2)-1;
 
 class_names = {props.templ.label{:}, 'NaN'};
 
-figure; 
+figure('Name', 'Basin Stability Hyperparameter Study', 'NumberTitle', 'off'); 
 p = cell(num_solutions, 1);
 if plot_error
     for i = 1:num_solutions

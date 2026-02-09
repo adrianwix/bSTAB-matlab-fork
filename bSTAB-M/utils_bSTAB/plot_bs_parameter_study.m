@@ -13,7 +13,7 @@ num_solutions = ((width(tab)-1)/2);
 nams = tab.Properties.VariableNames(2:props.templ.k+2); 
 
 
-figure; 
+figure('Name', 'Basin Stability Parameter Study', 'NumberTitle', 'off'); 
 p = cell(num_solutions, 1);
 if plot_error
     for i = 1:num_solutions

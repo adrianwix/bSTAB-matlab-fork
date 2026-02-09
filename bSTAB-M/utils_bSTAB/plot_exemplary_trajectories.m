@@ -17,7 +17,7 @@ for i = 1:n
 end
 
 % plotting
-figure; 
+figure('Name', 'Exemplary Trajectories', 'NumberTitle', 'off'); 
 ode_fun = props.model.odeFun;
 tspan = props.ti.tSpan;
 options = props.ti.options;
