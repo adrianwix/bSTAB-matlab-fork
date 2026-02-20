@@ -56,7 +56,7 @@ props.model.odeParams = [alpha, T, K];
 % Specify the subset of the state space where to sample the states from
 
 % 2.1 number of samples N
-props.roi.N = 10000; % integer number. 10^4 for case 1, 10^3 for case 2
+props.roi.N = 1000; % integer number. 10^4 for case 1, 10^3 for case 2
 
 % 2.2 minima (per state space dimension)
 props.roi.minLimits = [-pi+asin(T/K), -10]; % must be of length <props.model.dof>
@@ -177,7 +177,7 @@ props.templ.label{2} = 'LC'; % limit cycle solution label
 %% 6. Evaluation
 % as we run so many time integrations, it seems natural to collect some
 % amplitude values that can visualize a bifurcation map
-% props.eval.ampFun = @extract_amps; % a function handle. Default: @extract_amps
+props.eval.ampFun = @extract_amps_pendulum;
 
 
 %% 7. Bug check (to do)

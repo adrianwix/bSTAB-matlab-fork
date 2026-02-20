@@ -41,9 +41,9 @@ for idx_d = 1:n_dofs
     
     for idx_c = 1:n_clusts
         if flag_par_var
-            plot(props.ap_study.ap_values, reshape(amplitudes(idx_c,idx_d, :), num_par_var, 1), 'k.'); hold on;
+            plot(props.ap_study.ap_values, reshape(amplitudes(idx_c,idx_d, :), num_par_var, 1), '.-', 'MarkerSize', 15); hold on;
         else
-            plot(1, reshape(amplitudes(idx_c,idx_d, :), 1, 1), 'k.'); hold on;
+            plot(1, reshape(amplitudes(idx_c,idx_d, :), 1, 1), '.', 'MarkerSize', 15); hold on;
         end
     end
     ylabel(['amplitude state ', num2str(dof(idx_d))]);
